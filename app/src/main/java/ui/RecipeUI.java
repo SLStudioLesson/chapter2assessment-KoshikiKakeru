@@ -1,8 +1,8 @@
 package ui;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import data.RecipeFileHandler;
@@ -37,6 +37,7 @@ public class RecipeUI {
                 switch (choice) {
                     case "1":
                         // 設問1: 一覧表示機能
+                        displayRecipes();
                         break;
                     case "2":
                         // 設問2: 新規登録機能
@@ -62,7 +63,33 @@ public class RecipeUI {
      * RecipeFileHandlerから読み込んだレシピデータを整形してコンソールに表示します。
      */
     private void displayRecipes() {
+        // readRecipiesメソッドの呼び出し
+        ArrayList<String> array = new ArrayList<>();
+        array = fileHandler.readRecipes();
 
+        // レシピの表示
+        System.out.println("Recipies:");
+        System.out.println("-----------------------------------");
+
+        // ファイルが空だった場合
+        if (array.size() == 0) {
+            System.out.println("No recipes available.");
+        } else {
+            for (int i = 0; i < array.size(); i++) {
+                String[] menu = array.get(i).split(",");
+                System.out.println("Recipe Name: " + menu[0]);
+                System.out.print("Main Ingredients: ");
+                for (int j = 1; j < menu.length; j++) {
+                    if (menu[j].equals(menu[menu.length - 1])) {
+                        System.out.print(menu[j]);
+                        System.out.println("");
+                    } else {
+                        System.out.print(menu[j] + ",");
+                    }
+                }
+                System.out.println("-----------------------------------");
+            }
+        }
     }
 
     /**
@@ -72,6 +99,7 @@ public class RecipeUI {
      * @throws java.io.IOException 入出力が受け付けられない
      */
     private void addNewRecipe() throws IOException {
+        
 
     }
 
@@ -81,9 +109,9 @@ public class RecipeUI {
      *
      * @throws java.io.IOException 入出力が受け付けられない
      */
-    private void searchRecipe() throws IOException {
+    // private void searchRecipe() throws IOException {
 
-    }
+    // }
 
 }
 
